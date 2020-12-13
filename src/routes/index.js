@@ -1,9 +1,10 @@
 const router = require('koa-router')()
 
 router.get('/', async (ctx, next) => {
+
   await ctx.render('index', {
     title: 'Hello Koa 2!',
-    msg:'你好！'
+    msg: '你好！'
   })
 })
 
@@ -12,6 +13,7 @@ router.get('/string', async (ctx, next) => {
 })
 
 router.get('/json', async (ctx, next) => {
+  throw Error
   ctx.body = {
     title: 'koa2 json'
   }

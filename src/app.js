@@ -6,15 +6,28 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 
+
+const { isProd } = require('./utils/env')
+
+
+// 路由
 const index = require('./routes/index')
 const users = require('./routes/users')
+const errorViewRouter = require('./routes/view/error')
+
 
 // error handler
-onerror(app)
+let onerrorConf = {}
+if (isProd) {
+  onerrorConf = {
+    redirect: '/error'
+  }
+}
+onerror(app, onerrorConf)
 
 // middlewares
 app.use(bodyparser({
-  enableTypes:['json', 'form', 'text']
+  enableTypes: ['json', 'form', 'text']
 }))
 app.use(json())
 app.use(logger())
@@ -35,6 +48,7 @@ app.use(views(__dirname + '/views', {
 // routes
 app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
+app.use(errorViewRouter.routes(), errorViewRouter.allowedMethods()) // 404 路由注册到最后面
 
 // error-handling
 app.on('error', (err, ctx) => {
