@@ -7,7 +7,9 @@ const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 
 
-const { isProd } = require('./utils/env')
+const {
+  isProd
+} = require('./utils/env')
 
 
 // 路由
@@ -53,6 +55,6 @@ app.use(errorViewRouter.routes(), errorViewRouter.allowedMethods()) // 404 路�
 // error-handling
 app.on('error', (err, ctx) => {
   console.error('server error', err, ctx)
-});
+})
 
 module.exports = app
