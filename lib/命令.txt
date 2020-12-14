@@ -1,6 +1,7 @@
 start nginx 启动nginx
 
-redis-server redis.windows.conf  启动redis
+redis-server   启动redis
+redis-cli
 
 nvm list 查看当前所有的node版本
 nvm i v10.13.0 安装指定版本
