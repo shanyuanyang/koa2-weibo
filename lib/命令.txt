@@ -21,5 +21,8 @@ npm i cross-env -D  koa2设置环境变量的工具
 
 git init 初始化
 git remote add origin 仓库地址
-git status 查看未提交文件
+git status 查看当前缓存区是否清空
 git pull origin master 拉取
+touch .gitignore
+git checkout -b feature-xxx 拉取新功能分支
+git checkout -b fix-xxx  改bug分支
