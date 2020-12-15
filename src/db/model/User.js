@@ -4,6 +4,7 @@
  */
 
 const seq = require('../seq')
+const { STRING, DECIMAL } = require('../types')
 
 // users
 const User = seq.define('user', {
