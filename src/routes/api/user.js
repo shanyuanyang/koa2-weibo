@@ -9,11 +9,16 @@ const {
   isExist,
   register
 } = require('../../controller/user')
+const {
+  genValidator
+} = require('../../middlewares/validator')
+const userValidate = require('../../validator/user')
+
 
 router.prefix('/api/user')
 
 // 注册路由
-router.post('/register', async (ctx, ndext) => {
+router.post('/register', genValidator(userValidate), async (ctx, ndext) => {
   const {
     userName,
     password,
@@ -31,7 +36,7 @@ router.post('/isExist', async (ctx, ndext) => {
   // console.log(11111111111111)
   const {
     userName
-  } = ctx.request.body;
+  } = ctx.request.body
   ctx.body = await isExist(userName)
 
 
