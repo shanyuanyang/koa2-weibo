@@ -5,7 +5,7 @@
 
  
 const Ajv = require('ajv')
-console.log('Ajv----',Ajv)
+// console.log('Ajv----',Ajv)
 const ajv = new Ajv({
   // allErrors: true // 输出所有的错误（比较慢）
 })

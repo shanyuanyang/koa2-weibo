@@ -57,10 +57,25 @@ async function createUser({
     nickName: nickName || userName
   })
   const data = result.dataValues
-  console.log('data-----', data)
+  // console.log('data-----', data)
   return data
 }
+
+/**
+ *删除当前用户
+ * @param {string} userName 
+ */
+async function deleteUser(userName) {
+  const res = await User.destroy({
+    where: {
+      userName
+    }
+  })
+  return res > 0
+}
+
 module.exports = {
   getUserInfo,
-  createUser
+  createUser,
+  deleteUser
 }
