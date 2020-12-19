@@ -8,7 +8,8 @@ const router = require('koa-router')()
 const {
   isExist,
   register,
-  login
+  login,
+  deleteCurUser
 } = require('../../controller/user')
 const {
   genValidator

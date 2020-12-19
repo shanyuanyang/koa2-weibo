@@ -58,6 +58,8 @@ async function register({
       password: doCrypto(password),
       gender
     })
+    console.log('new SuccessModel()----', new SuccessModel())
+
     return new SuccessModel()
   } catch (ex) {
     console.error(ex.message, ex.stack)
@@ -81,6 +83,7 @@ async function login(ctx, userName, password) {
   if (ctx.session.userInfo == null) {
     ctx.session.userInfo = userInfo
   }
+
   return new SuccessModel();
 
 }
