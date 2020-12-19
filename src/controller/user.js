@@ -84,7 +84,7 @@ async function login(ctx, userName, password) {
     ctx.session.userInfo = userInfo
   }
 
-  return new SuccessModel();
+  return new SuccessModel()
 
 }
 
