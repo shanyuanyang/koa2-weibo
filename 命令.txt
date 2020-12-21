@@ -32,3 +32,5 @@ git branch -a 查看所有分支
 git checkout 分支名  切换分支
 git pull origin 分支名 拉取主分支
 git merge dev  合并dev分支到主分支
+git stash 忘记拉新分支 把已修改文件 挪到另一个缓存区
+git stash pop 把已修改文件放到当前分支缓存区
