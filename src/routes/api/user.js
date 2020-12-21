@@ -57,8 +57,7 @@ router.post('/delete', async (ctx, next) => {
     const { userName } = ctx.session.userInfo
     ctx.body = await deleteCurUser(userName)
   }
-
-
 })
+
 
 module.exports = router
