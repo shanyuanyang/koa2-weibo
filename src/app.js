@@ -31,13 +31,13 @@ const utilsAPIRouter = require('./routes/api/utils')
 
 
 // error handler
-// let onerrorConf = {}
-// if (isProd) {
-//   onerrorConf = {
-//     redirect: '/error'
-//   }
-// }
-// onerror(app, onerrorConf)
+let onerrorConf = {}
+if (isProd) {
+  onerrorConf = {
+    redirect: '/error'
+  }
+}
+onerror(app, onerrorConf)
 
 // middlewares
 app.use(bodyparser({
