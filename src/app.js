@@ -25,8 +25,10 @@ const {
 
 // 路由
 const userViewRouter = require('./routes/view/user')
+const blogViewRouter = require('./routes/view/blog')
 const errorViewRouter = require('./routes/view/error')
 const userAPIRouter = require('./routes/api/user')
+const blogHomeAPIRouter = require('./routes/api/blog-home')
 const utilsAPIRouter = require('./routes/api/utils')
 
 
@@ -69,8 +71,10 @@ app.use(session({
 
 // routes
 app.use(userViewRouter.routes(),userViewRouter.allowedMethods())
+app.use(blogViewRouter.routes(),blogViewRouter.allowedMethods())
 app.use(userAPIRouter.routes(),userAPIRouter.allowedMethods())
 app.use(utilsAPIRouter.routes(),utilsAPIRouter.allowedMethods())
+app.use(blogHomeAPIRouter.routes(),blogHomeAPIRouter.allowedMethods())
 app.use(errorViewRouter.routes(), errorViewRouter.allowedMethods()) // 404 路由注册到最后面
 
 // error-handling
