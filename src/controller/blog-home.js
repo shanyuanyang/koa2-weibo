@@ -4,7 +4,7 @@
 */
 
 const xss = require('xss')
-const { createBlog, getBlogListByUser } = require('../services/blog')
+const { createBlog } = require('../services/blog')
 const { createBlogFailInfo } = require("../model/ErrorInfo")
 const { SuccessModel, ErrorModel } = require("../model/ResModel")
 const { PAGE_SIZE } = require('../conf/constant')
@@ -26,31 +26,8 @@ async function create({ userId, content, image }) {
     return new ErrorModel(createBlogFailInfo)
   }
 }
-/**
- * 获取首页微博列表
- * @param {*} userId 
- */
-async function getHomeBlogList(userId, pageIndex = 0) {
 
-
-  const result = await getBlogListByUser({
-    userId,
-    pageIndex,
-    pageSize: PAGE_SIZE
-  })
-  const { count, blogList } = result
-
-  // 返回
-  return new SuccessModel({
-    isEmpty: blogList.length === 0,
-    blogList,
-    pageSize: PAGE_SIZE,
-    pageIndex,
-    count
-  })
-}
 
 module.exports = {
   create,
-  getHomeBlogList
 }

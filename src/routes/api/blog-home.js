@@ -1,29 +1,55 @@
 /** 
  * @description 首页 API 路由
  * @author syy
-*/
+ */
 
 const router = require('koa-router')()
-const { loginCheck } = require('../../middlewares/loginChecks')
-const { create, getHomeBlogList } = require('../../controller/blog-home')
-const { getBlogListStr } = require('../../utils/blog')
-const { genValidator } = require('../../middlewares/validator')
-const { blogValidate } = require('../../validator/blog')
+const {
+  loginCheck
+} = require('../../middlewares/loginChecks')
+const {
+  create
+} = require('../../controller/blog-home')
+const {
+  getHomeBlogList
+} = require('../../controller/blog-profile')
+const {
+  getBlogListStr
+} = require('../../utils/blog')
+const {
+  genValidator
+} = require('../../middlewares/validator')
+const {
+  blogValidate
+} = require('../../validator/blog')
 router.prefix('/api/blog')
 //创建微博
 router.post('/create', loginCheck, genValidator(blogValidate), async (ctx, next) => {
-  const { content, image } = ctx.request.body
-  const { id: userId } = ctx.session.userInfo
-  ctx.body = await create({ userId, content, image })
+  const {
+    content,
+    image
+  } = ctx.request.body
+  const {
+    id: userId
+  } = ctx.session.userInfo
+  ctx.body = await create({
+    userId,
+    content,
+    image
+  })
 })
 
 
 // 加载更多
 router.get('/loadMore/:pageIndex', loginCheck, async (ctx, next) => {
   console.log(11111)
-  let { pageIndex } = ctx.params
+  let {
+    pageIndex
+  } = ctx.params
   pageIndex = parseInt(pageIndex)
-  const { id: userId } = ctx.session.userInfo
+  const {
+    id: userId
+  } = ctx.session.userInfo
   const result = await getHomeBlogList(userId, pageIndex)
   // 渲染模板
   result.data.blogListTpl = getBlogListStr(result.data.blogList)
