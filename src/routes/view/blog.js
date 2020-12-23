@@ -13,6 +13,9 @@ router.get('/', loginRedirect, async (ctx, next) => {
   const userInfo = ctx.session.userInfo
   const { id: userId } = userInfo
 
+  //获取第一页数据
+  // const result = await 
+  
   await ctx.render('index', {
     userData: {
       userInfo,
@@ -24,7 +27,7 @@ router.get('/', loginRedirect, async (ctx, next) => {
         count: 0,
         list: []
       },
-      atCount:true
+      atCount: true
     },
     blogData: {
       isEmpty: true,
