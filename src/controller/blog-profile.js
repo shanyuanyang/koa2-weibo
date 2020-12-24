@@ -25,7 +25,7 @@ async function getProfileBlogList(userName, pageIndex = 0) {
     pageSize: PAGE_SIZE
   })
   const blogList = result.blogList
-
+  
   // 拼接返回数据
   return new SuccessModel({
     isEmpty: blogList.length === 0,

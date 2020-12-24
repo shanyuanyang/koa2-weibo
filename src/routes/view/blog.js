@@ -6,16 +6,30 @@
 const router = require('koa-router')()
 
 const { loginRedirect } = require('../../middlewares/loginChecks')
-
-
+const { getHomeBlogList } = require('../../controller/blog-home')
+const { getProfileBlogList } = require('../../controller/blog-profile')
+const { getSquareBlogList } = require('../../controller/blog-square')
 // 首页
 router.get('/', loginRedirect, async (ctx, next) => {
   const userInfo = ctx.session.userInfo
   const { id: userId } = userInfo
 
   //获取第一页数据
-  // const result = await 
-  
+  const result = await getHomeBlogList(userId)
+  const { isEmpty, blogList, pageSize, pageIndex, count } = result.data
+
+  // // 获取粉丝
+  // const fansResult = await getFans(userId)
+  // const { count: fansCount, fansList } = fansResult.data
+
+  // // 获取关注人列表
+  // const followersResult = await getFollowers(userId)
+  // const { count: followersCount, followersList } = followersResult.data
+
+  // // 获取 @ 数量
+  // const atCountResult = await getAtMeCount(userId)
+  // const { count: atCount } = atCountResult.data
+
   await ctx.render('index', {
     userData: {
       userInfo,
@@ -27,14 +41,14 @@ router.get('/', loginRedirect, async (ctx, next) => {
         count: 0,
         list: []
       },
-      atCount: true
+      atCount: 0
     },
     blogData: {
-      isEmpty: true,
-      blogList: [],
-      pageSize: 10,
-      pageIndex: 1,
-      count: 10
+      isEmpty,
+      blogList,
+      pageSize,
+      pageIndex,
+      count
     }
   })
 })
@@ -45,7 +59,90 @@ router.get('/profile', loginRedirect, async (ctx, next) => {
   ctx.redirect(`/profile/${userName}`)
 })
 router.get('/profile/:userName', loginRedirect, async (ctx, next) => {
-  await ctx.render('profile', {})
+  // 已登录用户的信息
+  const myUserInfo = ctx.session.userInfo
+  const myUserName = myUserInfo.userName
+
+  let curUserInfo
+  const { userName: curUserName } = ctx.params
+  // const isMe = myUserName === curUserName
+  // if (isMe) {
+  //   // 是当前登录用户
+  //   curUserInfo = myUserInfo
+  // } else {
+  //   // 不是当前登录用户
+  //   const existResult = await isExist(curUserName)
+  //   if (existResult.errno !== 0) {
+  //     // 用户名不存在
+  //     return
+  //   }
+  //   // 用户名存在
+  //   curUserInfo = existResult.data
+  // }
+
+  // // 获取微博第一页数据
+  const result = await getProfileBlogList(curUserName, 0)
+  const { isEmpty, blogList, pageSize, pageIndex, count } = result.data
+
+  // // 获取粉丝
+  // const fansResult = await getFans(curUserInfo.id)
+  // const { count: fansCount, fansList } = fansResult.data
+
+  // // 获取关注人列表
+  // const followersResult = await getFollowers(curUserInfo.id)
+  // const { count: followersCount, followersList } = followersResult.data
+
+  // // 我是否关注了此人？
+  // const amIFollowed = fansList.some(item => {
+  //   return item.userName === myUserName
+  // })
+
+  // // 获取 @ 数量
+  // const atCountResult = await getAtMeCount(myUserInfo.id)
+  // const { count: atCount } = atCountResult.data
+
+
+  await ctx.render('profile', {
+    blogData: {
+      isEmpty,
+      blogList,
+      pageSize,
+      pageIndex,
+      count
+    },
+    userData: {
+      userInfo: '',
+      isMe: true,
+      fansData: {
+        count: 0,
+        list: []
+      },
+      followersData: {
+        count: 0,
+        list: []
+      },
+      amIFollowed: 0,
+      atCount: 0
+    }
+  })
+})
+
+
+// 广场
+router.get('/square', loginRedirect, async (ctx, next) => {
+  // 获取微博数据，第一页
+  const result = await getSquareBlogList(0)
+  const { isEmpty, blogList, pageSize, pageIndex, count } = result.data || {}
+
+  await ctx.render('square', {
+    blogData: {
+      isEmpty,
+      blogList,
+      pageSize,
+      pageIndex,
+      count
+    }
+  })
 })
 
 module.exports = router

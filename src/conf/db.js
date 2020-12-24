@@ -1,6 +1,6 @@
 /**
  * @description 存储配置
- * @author 单远洋
+ * @author syy
  */
 
 const {

@@ -4,6 +4,9 @@
  */
 
 const router = require('koa-router')()
+const { loginCheck } = require('../../middlewares/loginChecks')
+const { getProfileBlogList } = require('../../controller/blog-profile')
+const { getBlogListStr } = require('../../utils/blog')
 
 router.prefix('/api/profile')
 
@@ -14,8 +17,9 @@ router.get('/loadMore/:userName/:pageIndex', loginCheck, async (ctx, next) => {
     pageIndex
   } = ctx.params
   pageIndex = parseInt(pageIndex)
+  // console.log(pageIndex)
   const result = await getProfileBlogList(userName, pageIndex)
-
+  // console.log('result----', result)
   // 渲染为 html 字符串
   result.data.blogListTpl = getBlogListStr(result.data.blogList)
 

@@ -1,15 +1,15 @@
 /**
  * @description 数据格式化
- * @author 双越老师
+ * @author syy
  */
 
 const {
   DEFAULT_PICTURE,
   REG_FOR_AT_WHO
 } = require('../conf/constant')
-// const {
-//   timeFormat
-// } = require('../utils/dt')
+const {
+  timeFormat
+} = require('../utils/dt')
 
 /**
  * 用户默认头像
@@ -92,5 +92,5 @@ function formatBlog(list) {
 
 module.exports = {
   formatUser,
-  // formatBlog
+  formatBlog
 }

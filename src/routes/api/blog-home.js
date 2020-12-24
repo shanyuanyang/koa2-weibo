@@ -8,11 +8,9 @@ const {
   loginCheck
 } = require('../../middlewares/loginChecks')
 const {
-  create
-} = require('../../controller/blog-home')
-const {
+  create,
   getHomeBlogList
-} = require('../../controller/blog-profile')
+} = require('../../controller/blog-home')
 const {
   getBlogListStr
 } = require('../../utils/blog')
@@ -42,7 +40,6 @@ router.post('/create', loginCheck, genValidator(blogValidate), async (ctx, next)
 
 // 加载更多
 router.get('/loadMore/:pageIndex', loginCheck, async (ctx, next) => {
-  console.log(11111)
   let {
     pageIndex
   } = ctx.params

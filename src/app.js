@@ -29,6 +29,8 @@ const blogViewRouter = require('./routes/view/blog')
 const errorViewRouter = require('./routes/view/error')
 const userAPIRouter = require('./routes/api/user')
 const blogHomeAPIRouter = require('./routes/api/blog-home')
+const blogProfileAPIRouter = require('./routes/api/blog-profile')
+const blogSquareAPIRouter = require('./routes/api/blog-square')
 const utilsAPIRouter = require('./routes/api/utils')
 
 
@@ -75,6 +77,8 @@ app.use(blogViewRouter.routes(),blogViewRouter.allowedMethods())
 app.use(userAPIRouter.routes(),userAPIRouter.allowedMethods())
 app.use(utilsAPIRouter.routes(),utilsAPIRouter.allowedMethods())
 app.use(blogHomeAPIRouter.routes(),blogHomeAPIRouter.allowedMethods())
+app.use(blogProfileAPIRouter.routes(),blogProfileAPIRouter.allowedMethods())
+app.use(blogSquareAPIRouter.routes(),blogSquareAPIRouter.allowedMethods())
 app.use(errorViewRouter.routes(), errorViewRouter.allowedMethods()) // 404 路由注册到最后面
 
 // error-handling

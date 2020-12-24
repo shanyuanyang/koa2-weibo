@@ -54,7 +54,44 @@ async function getBlogListByUser({ userName, pageIndex = 0, pageSize = 10 }) {
     blogItem.user = formatUser(user)
     return blogItem
   })
-  console.log('blogList-----', blogList)
+  return {
+    count: result.count,
+    blogList
+  }
+}
+
+/**
+ * 获取关注着的微博列表（首页）
+ * @param {Object} param0 查询条件 { userId, pageIndex = 0, pageSize = 10 }
+ */
+async function getFollowersBlogList({ userId, pageIndex = 0, pageSize = 10 }) {
+  const result = await Blog.findAndCountAll({
+    limit: pageSize, // 每页多少条
+    offset: pageSize * pageIndex, // 跳过多少条
+    order: [
+      ['id', 'desc']
+    ],
+    include: [
+      {
+        model: User,
+        attributes: ['userName', 'nickName', 'picture']
+      },
+      // {
+      //   model: UserRelation,
+      //   attributes: ['userId', 'followerId'],
+      //   where: { userId }
+      // }
+    ]
+  })
+
+  // 格式化数据
+  let blogList = result.rows.map(row => row.dataValues)
+  blogList = formatBlog(blogList)
+  blogList = blogList.map(blogItem => {
+    blogItem.user = formatUser(blogItem.user.dataValues)
+    return blogItem
+  })
+
   return {
     count: result.count,
     blogList
@@ -66,5 +103,6 @@ async function getBlogListByUser({ userName, pageIndex = 0, pageSize = 10 }) {
 
 module.exports = {
   createBlog,
-  getBlogListByUser
+  getBlogListByUser,
+  getFollowersBlogList
 }
