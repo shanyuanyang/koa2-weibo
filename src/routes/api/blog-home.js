@@ -21,6 +21,8 @@ const {
   blogValidate
 } = require('../../validator/blog')
 router.prefix('/api/blog')
+
+
 //创建微博
 router.post('/create', loginCheck, genValidator(blogValidate), async (ctx, next) => {
   const {

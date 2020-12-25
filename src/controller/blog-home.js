@@ -5,6 +5,7 @@
 
 const xss = require('xss')
 const { createBlog, getFollowersBlogList } = require('../services/blog')
+const { createAtRelation } = require('../services/at-relation')
 const { createBlogFailInfo } = require("../model/ErrorInfo")
 const { SuccessModel, ErrorModel } = require("../model/ResModel")
 const { PAGE_SIZE } = require('../conf/constant')
@@ -20,6 +21,12 @@ async function create({ userId, content, image }) {
       content: xss(content),
       image
     })
+
+    // // 创建 @ 关系
+    // await Promise.all(atUserIdList.map(
+    //   userId => createAtRelation(blog.id, userId)
+    // ))
+
     return new SuccessModel(blog)
   } catch (ex) {
     console.error(ex.message, ex.stack)

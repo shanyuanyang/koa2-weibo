@@ -4,7 +4,7 @@
  */
 
 const User = require('../db/model/User')
-
+const { addFollower } = require('./user-relation')
 const {
   formatUser
 } = require('./_format')
@@ -57,7 +57,9 @@ async function createUser({
     nickName: nickName || userName
   })
   const data = result.dataValues
-  // console.log('data-----', data)
+  // 自己关注自己 为了首页方便获取数据
+  addFollower(data.id, data.id)
+
   return data
 }
 

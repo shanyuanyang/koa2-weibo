@@ -5,7 +5,6 @@
 
 const { Blog, User } = require('../db/model/index')
 const { formatUser, formatBlog } = require('./_format')
-
 /**
  * 创建微博
  * @param {*} param0 
@@ -16,6 +15,7 @@ async function createBlog({ content, userId, image }) {
     userId,
     image
   })
+
   return result.dataValues
 }
 
