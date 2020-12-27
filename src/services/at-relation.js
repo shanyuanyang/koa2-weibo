@@ -2,9 +2,14 @@
  * @description 微博 @ service
  * @author syy
  * 
-*/
+ */
 
-const { AtRelation, Blog, User, UserRelation } = require('../db/model/index')
+const {
+  AtRelation,
+  Blog,
+  User,
+  UserRelation
+} = require('../db/model/index')
 const {
   formatUser,
   formatBlog
@@ -32,7 +37,7 @@ async function getAtRelationCount(userId) {
   const result = await AtRelation.findAndCountAll({
     where: {
       userId,
-      idRead: false
+      isRead: false
     }
   })
   return result.count
@@ -43,7 +48,12 @@ async function getAtRelationCount(userId) {
  * 获取 @ 用户的微博列表
  * @param {*} param0 
  */
-async function getAtUserBlogList({ userId, pageIndex, pageSize = 10 }) {
+async function getAtUserBlogList({
+  userId,
+  pageIndex,
+  pageSize = 10
+}) {
+  console.log('userId----', userId)
   const result = await Blog.findAndCountAll({
     limit: pageSize,
     offset: pageIndex * pageSize,
@@ -54,7 +64,7 @@ async function getAtUserBlogList({ userId, pageIndex, pageSize = 10 }) {
       // 关系
       {
         model: AtRelation,
-        attributes: ['userId', 'blodId'],
+        attributes: ['userId', 'blogId'],
         where: {
           userId
         }
@@ -62,18 +72,17 @@ async function getAtUserBlogList({ userId, pageIndex, pageSize = 10 }) {
       // 用户
       {
         model: User,
-        attributes: ['userName', 'nickName', 'picture', 'city']
+        attributes: ['userName', 'nickName', 'picture']
       }
     ]
   })
   // 处理数据
-  let blogList = result.rows.map(row => { row.dataValues })
+  let blogList = result.rows.map(row => row.dataValues)
   blogList = formatBlog(blogList)
-  blogList.map(blog => {
-    blog.user = formatBlog(blog.user.dataValues)
+  blogList = blogList.map(blog => {
+    blog.user = formatUser(blog.user.dataValues)
     return blog
   })
-  console.log('blogList--------', blogList)
   return {
     count: result.count,
     blogList
@@ -86,9 +95,13 @@ async function getAtUserBlogList({ userId, pageIndex, pageSize = 10 }) {
  * @param {Object} param0 更新内容
  * @param {Object} param1 查询条件
  */
-async function updateAtRelation(
-  { newIsRead }, // 要更新的内容
-  { userId, isRead } // 条件
+async function updateAtRelation({
+    newIsRead
+  }, // 要更新的内容
+  {
+    userId,
+    isRead
+  } // 条件
 ) {
   // 拼接更新内容
   const updateData = {}

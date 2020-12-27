@@ -1,0 +1,39 @@
+2020-12-27 11:01:05: exist------ true
+2020-12-27 11:21:03: exist------ true
+2020-12-27 11:21:15: exist------ true
+2020-12-27 11:23:44: exist------ true
+2020-12-27 11:38:28: exist------ true
+2020-12-27 12:26:00: exist------ true
+2020-12-27 12:29:10:   <-- GET /css/right.css
+2020-12-27 12:29:10:   -x- GET /css/right.css 200 26ms 532b
+2020-12-27 12:32:54: exist------ true
+2020-12-27 12:33:25: exist------ true
+2020-12-27 12:34:02: exist------ true
+2020-12-27 12:34:07: exist------ true
+2020-12-27 12:34:32: exist------ true
+2020-12-27 12:34:32:   <-- GET /css/main.css
+2020-12-27 12:34:32:   <-- GET /css/list.css
+2020-12-27 12:34:32:   --> GET /css/main.css 200 24ms 661b
+2020-12-27 12:34:32:   <-- GET /javascripts/jquery.caret.js
+2020-12-27 12:34:32:   --> GET /css/list.css 200 16ms 548b
+2020-12-27 12:34:32:   --> GET /javascripts/jquery.caret.js 200 6ms 12.88kb
+2020-12-27 12:34:32:   <-- GET /javascripts/jquery.atwho.js
+2020-12-27 12:34:32:   --> GET /javascripts/jquery.atwho.js 200 3ms 36.65kb
+2020-12-27 12:34:32:   <-- GET /1609043667356.1604229451(1).jpg
+2020-12-27 12:34:32:   <-- GET /javascripts/query-object.js
+2020-12-27 12:34:32:   --> GET /javascripts/query-object.js 200 3ms 8.46kb
+2020-12-27 12:34:32:   --> GET /1609043667356.1604229451(1).jpg 200 7ms 18.22kb
+2020-12-27 12:34:32:   <-- GET /1609043648775.1604229451(1).jpg
+2020-12-27 12:34:32:   -x- GET /1609043648775.1604229451(1).jpg 200 3ms 18.22kb
+2020-12-27 12:34:32:   <-- GET /api/user/getAtList
+2020-12-27 12:34:32:   <-- GET /favicon.ico
+2020-12-27 12:34:32:   --> GET /favicon.ico 200 274ms 2.33kb
+2020-12-27 12:34:32: Executing (default): SELECT count(`userRelation`.`id`) AS `count` FROM `userRelations` AS `userRelation` LEFT OUTER JOIN `users` AS `user` ON `userRelation`.`followerId` = `user`.`id` WHERE `userRelation`.`userId` = 1 AND `userRelation`.`followerId` != 1;
+2020-12-27 12:34:32: Executing (default): SELECT `userRelation`.`id`, `userRelation`.`userId`, `userRelation`.`followerId`, `userRelation`.`createdAt`, `userRelation`.`updatedAt`, `user`.`id` AS `user.id`, `user`.`userName` AS `user.userName`, `user`.`nickName` AS `user.nickName`, `user`.`picture` AS `user.picture` FROM `userRelations` AS `userRelation` LEFT OUTER JOIN `users` AS `user` ON `userRelation`.`followerId` = `user`.`id` WHERE `userRelation`.`userId` = 1 AND `userRelation`.`followerId` != 1 ORDER BY `userRelation`.`id` DESC;
+2020-12-27 12:34:32:   --> GET /api/user/getAtList 200 372ms 11b
+2020-12-27 12:35:45: exist------ true
+2020-12-27 12:37:56: exist------ true
+2020-12-27 12:41:37: exist------ true
+2020-12-27 12:41:42: exist------ true
+2020-12-27 12:41:46: exist------ true
+2020-12-27 12:44:58: exist------ true

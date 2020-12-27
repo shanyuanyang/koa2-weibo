@@ -29,7 +29,7 @@ Blog.belongsTo(UserRelation, {
 })
 
 Blog.hasMany(AtRelation, {
-  foreignKey: 'blodId'
+  foreignKey: 'blogId'
 })
 
 module.exports = {

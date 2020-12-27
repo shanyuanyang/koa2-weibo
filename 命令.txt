@@ -1,4 +1,6 @@
 start nginx 启动nginx
+nginx -t 测试配置文件是否成功
+nginx -s reload
 
 redis-server   启动redis
 redis-cli
@@ -34,3 +36,14 @@ git pull origin 分支名 拉取主分支
 git merge dev  合并dev分支到主分支
 git stash 忘记拉新分支 把已修改文件 挪到另一个缓存区
 git stash pop 把已修改文件放到当前分支缓存区
+
+
+npm i pm2 -g 
+pm2 list 
+pm2 --version 
+pm2 restart www 或者 0  重启进程
+pm2 stop www 或者0 停止进程
+pm2 delete www或者0 删除进程
+pm2 info 0 查看进程
+pm2 logo www 打印日志
+pm2 monit www 监控

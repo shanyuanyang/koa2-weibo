@@ -3,13 +3,24 @@
  * @author syy
  */
 
-const { Blog, User } = require('../db/model/index')
-const { formatUser, formatBlog } = require('./_format')
+const {
+  Blog,
+  User,
+  UserRelation
+} = require('../db/model/index')
+const {
+  formatUser,
+  formatBlog
+} = require('./_format')
 /**
  * 创建微博
  * @param {*} param0 
  */
-async function createBlog({ content, userId, image }) {
+async function createBlog({
+  content,
+  userId,
+  image
+}) {
   const result = await Blog.create({
     content,
     userId,
@@ -23,7 +34,11 @@ async function createBlog({ content, userId, image }) {
  * 根据用户获取微博列表
  * @param {object} param0  userName pageIndex pageSize
  */
-async function getBlogListByUser({ userName, pageIndex = 0, pageSize = 10 }) {
+async function getBlogListByUser({
+  userName,
+  pageIndex = 0,
+  pageSize = 10
+}) {
 
   // 拼接查询条件
   const userWhereOpts = {}
@@ -31,18 +46,16 @@ async function getBlogListByUser({ userName, pageIndex = 0, pageSize = 10 }) {
     userWhereOpts.userName = userName
   }
   const result = await Blog.findAndCountAll({
-    limit: pageSize,//每页多少条
+    limit: pageSize, //每页多少条
     offset: pageIndex * pageSize, // 跳过多少条
     order: [
       ['id', 'desc']
     ],
-    include: [
-      {
-        model: User,
-        attributes: ['userName', 'nickName', 'picture'],
-        where: userWhereOpts
-      }
-    ]
+    include: [{
+      model: User,
+      attributes: ['userName', 'nickName', 'picture'],
+      where: userWhereOpts
+    }]
   })
 
   // 获取 dataValues
@@ -64,23 +77,28 @@ async function getBlogListByUser({ userName, pageIndex = 0, pageSize = 10 }) {
  * 获取关注着的微博列表（首页）
  * @param {Object} param0 查询条件 { userId, pageIndex = 0, pageSize = 10 }
  */
-async function getFollowersBlogList({ userId, pageIndex = 0, pageSize = 10 }) {
+async function getFollowersBlogList({
+  userId,
+  pageIndex = 0,
+  pageSize = 10
+}) {
   const result = await Blog.findAndCountAll({
     limit: pageSize, // 每页多少条
     offset: pageSize * pageIndex, // 跳过多少条
     order: [
       ['id', 'desc']
     ],
-    include: [
-      {
+    include: [{
         model: User,
         attributes: ['userName', 'nickName', 'picture']
       },
-      // {
-      //   model: UserRelation,
-      //   attributes: ['userId', 'followerId'],
-      //   where: { userId }
-      // }
+      {
+        model: UserRelation,
+        attributes: ['userId', 'followerId'],
+        where: {
+          userId
+        }
+      }
     ]
   })
 
@@ -97,6 +115,7 @@ async function getFollowersBlogList({ userId, pageIndex = 0, pageSize = 10 }) {
     blogList
   }
 }
+
 
 
 

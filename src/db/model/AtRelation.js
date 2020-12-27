@@ -11,12 +11,12 @@ const AtRelation = seq.define('atRelation', {
     allowNull: false,
     comment: '用户ID'
   },
-  blodId: {
+  blogId: {
     type: INTEGER,
     allowNull: false,
     comment: '微博ID'
   },
-  idRead: {
+  isRead: {
     type: BOOLEAN,
     allowNull: false,
     defaultValue: false, 

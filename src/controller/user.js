@@ -27,6 +27,7 @@ const {
 const doCrypto = require('../utils/cryp')
 const User = require('../db/model/User')
 
+
 /**
  * 用户名是否存在
  * @param {string} userName  用户名
@@ -112,18 +113,21 @@ async function deleteCurUser(userName) {
  * @param {*} ctx 
  * @param {*} param1 
  */
-async function changeInfo(ctx, { nickName, city, picture }) {
-  const { userName } = ctx.session.userInfo
-  const result = await updateUser(
-    {
-      newNickName: nickName,
-      newCity: city,
-      newPicture: picture,
-    },
-    {
-      userName
-    }
-  )
+async function changeInfo(ctx, {
+  nickName,
+  city,
+  picture
+}) {
+  const {
+    userName
+  } = ctx.session.userInfo
+  const result = await updateUser({
+    newNickName: nickName,
+    newCity: city,
+    newPicture: picture,
+  }, {
+    userName
+  })
   if (result) {
     // 执行成功
     Object.assign(ctx.session.userInfo, {
@@ -145,15 +149,12 @@ async function changeInfo(ctx, { nickName, city, picture }) {
  * @param {string} newPassword 新密码
  */
 async function changePassword(userName, password, newPassword) {
-  const result = await updateUser(
-    {
-      newPassword: doCrypto(newPassword)
-    },
-    {
-      userName,
-      password: doCrypto(password)
-    }
-  )
+  const result = await updateUser({
+    newPassword: doCrypto(newPassword)
+  }, {
+    userName,
+    password: doCrypto(password)
+  })
   if (result) {
     // 成功
     return new SuccessModel()
@@ -170,6 +171,7 @@ async function logout(ctx) {
   delete ctx.session.userInfo
   return new SuccessModel()
 }
+
 module.exports = {
   isExist,
   register,
