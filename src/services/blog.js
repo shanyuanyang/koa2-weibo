@@ -89,17 +89,15 @@ async function getFollowersBlogList({
       ['id', 'desc']
     ],
     include: [{
-        model: User,
-        attributes: ['userName', 'nickName', 'picture']
-      },
-      {
-        model: UserRelation,
-        attributes: ['userId', 'followerId'],
-        where: {
-          userId
-        }
+      model: User,
+      attributes: ['userName', 'nickName', 'picture']
+    }, {
+      model: UserRelation,
+      attributes: ['userId', 'followerId'],
+      where: {
+        userId
       }
-    ]
+    }]
   })
 
   // 格式化数据

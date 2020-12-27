@@ -4,7 +4,7 @@
  * 
 */
 const { getAtRelationCount, getAtUserBlogList, updateAtRelation } = require('../services/at-relation')
-const { SuccessModel, ErrorModel } = require("../model/ResModel")
+const { SuccessModel, ErrorModel } = require('../model/ResModel')
 const { PAGE_SIZE } = require('../conf/constant')
 
 

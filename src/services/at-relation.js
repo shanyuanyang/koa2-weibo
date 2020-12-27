@@ -96,13 +96,11 @@ async function getAtUserBlogList({
  * @param {Object} param1 查询条件
  */
 async function updateAtRelation({
-    newIsRead
-  }, // 要更新的内容
-  {
-    userId,
-    isRead
-  } // 条件
-) {
+  newIsRead
+}, {
+  userId,
+  isRead
+}) {
   // 拼接更新内容
   const updateData = {}
   if (newIsRead) {

@@ -13,11 +13,11 @@ const {
 } = require('../services/at-relation')
 const {
   createBlogFailInfo
-} = require("../model/ErrorInfo")
+} = require('../model/ErrorInfo')
 const {
   SuccessModel,
   ErrorModel
-} = require("../model/ResModel")
+} = require('../model/ResModel')
 const {
   PAGE_SIZE,
   REG_FOR_AT_WHO
